@@ -1,9 +1,8 @@
 """
 Database models.
 """
-
 from django.db import models
-from django.contrib.auth.models import(
+from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
@@ -29,6 +28,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UserManager(  )
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
