@@ -130,3 +130,6 @@ dmypy.json
 
 # id
 app/id.txt
+
+#ds store
+ .DS_Store
