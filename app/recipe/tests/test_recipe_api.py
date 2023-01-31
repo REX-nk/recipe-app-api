@@ -51,12 +51,13 @@ class PrivateRecipeApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = get_user_model().objects.create_user(
-            'user@exmaple.com',
+            'user@example.com',
             'testpass123',
         )
         self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
+        """Test retrieving a liast of recipes."""
         create_recipe(user=self.user)
         create_recipe(user=self.user)
 
@@ -70,7 +71,7 @@ class PrivateRecipeApiTests(TestCase):
     def test_recipe_list_limited_to_user(self):
         """Test list of recipes is limited to authenticated user."""
         other_user = get_user_model().objects.create_user(
-            'other@exmaple.com',
+            'other@example.com',
             'password123',
         )
         create_recipe(user=other_user)
