@@ -67,7 +67,7 @@ class PrivateRecipeApiTests(TestCase):
         self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
-        """Test retrieving a liast of recipes."""
+        """Test retrieving a list of recipes."""
         create_recipe(user=self.user)
         create_recipe(user=self.user)
 
@@ -117,7 +117,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(recipe.user, self.user)
 
     def test_partial_update(self):
-        """Test partial updata of a recipe."""
+        """Test partial update of a recipe."""
         original_link = 'https://example.com/recipe.pdf'
         recipe = create_recipe(
             user=self.user,
@@ -139,9 +139,9 @@ class PrivateRecipeApiTests(TestCase):
         """Test full update of recipe."""
         recipe = create_recipe(
             user=self.user,
-            title='Sample recipe title.',
+            title='Sample recipe title',
             link='https://example.com/recipe.pdf',
-            description='Sample recipe description',
+            description='Sample recipe description.',
         )
 
         payload = {
@@ -149,7 +149,7 @@ class PrivateRecipeApiTests(TestCase):
             'link': 'https://example.com/new-recipe.pdf',
             'description': 'New recipe description',
             'time_minutes': 10,
-            'price': Decimal('2.50')
+            'price': Decimal('2.50'),
         }
         url = detail_url(recipe.id)
         res = self.client.put(url, payload)
@@ -173,7 +173,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(recipe.user, self.user)
 
     def test_delete_recipe(self):
-        """Test deleting a recipe successful."""    
+        """Test deleting a recipe successful."""
         recipe = create_recipe(user=self.user)
 
         url = detail_url(recipe.id)
@@ -183,6 +183,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertFalse(Recipe.objects.filter(id=recipe.id).exists())
 
     def test_recipe_other_users_recipe_error(self):
+        """Test trying to delete another users recipe gives error."""
         new_user = create_user(email='user2@example.com', password='test123')
         recipe = create_recipe(user=new_user)
 
