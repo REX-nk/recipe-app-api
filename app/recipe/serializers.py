@@ -1,5 +1,5 @@
 """
-Serializer for recipe APIs
+Serializers for recipe APIs
 """
 from rest_framework import serializers
 
@@ -17,6 +17,6 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class RecipeDetailSerializer(RecipeSerializer):
     """Serializer for recipe detail view."""
-    
+
     class Meta(RecipeSerializer.Meta):
         fields = RecipeSerializer.Meta.fields + ['description']
