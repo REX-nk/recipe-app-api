@@ -23,8 +23,6 @@ services:
       - db
 
   db:
-    # platform: linux/arm64/v8
-    # image: postgres:13
     image: postgres:13-alpine
     volumes:
       - dev-db-data:/var/lib/postgresql/data
