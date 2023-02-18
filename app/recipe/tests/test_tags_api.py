@@ -25,14 +25,14 @@ def create_user(email='user@example.com', password='testpass123'):
     return get_user_model().objects.create_user(email=email, password=password)
 
 
-class PublicTagsApiTest(TestCase):
+class PublicTagsApiTests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
         self.client = APIClient()
 
     def test_auth_required(self):
-        """Test auth is required for retriving tags."""
+        """Test auth is required for retrivieng tags."""
         res = self.client.get(TAGS_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)

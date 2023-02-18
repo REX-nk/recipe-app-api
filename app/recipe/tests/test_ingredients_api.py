@@ -31,14 +31,14 @@ class PublicIngredientsApiTests(TestCase):
         self.client = APIClient()
 
     def test_auth_required(self):
-        """Test auth is required for retriving ingredients."""
+        """Test auth is required for retrieving ingredients."""
         res = self.client.get(INGREDIENTS_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateIngredientsApiTests(TestCase):
-    """Test unauthenticated API request."""
+    """Test authenticated API requests."""
 
     def setUp(self):
         self.user = create_user()
@@ -46,7 +46,7 @@ class PrivateIngredientsApiTests(TestCase):
         self.client.force_authenticate(self.user)
 
     def test_retrieve_ingredients(self):
-        """Test retriveing a list of ingredients."""
+        """Test retrieving a list of ingredients."""
         Ingredient.objects.create(user=self.user, name='Kale')
         Ingredient.objects.create(user=self.user, name='Vanilla')
 
@@ -72,7 +72,7 @@ class PrivateIngredientsApiTests(TestCase):
 
     def test_update_ingredient(self):
         """Test updating an ingredient."""
-        ingredient = Ingredient.objects.create(user=self.user, name='Cilentro')
+        ingredient = Ingredient.objects.create(user=self.user, name='Cilantro')
 
         payload = {'name': 'Coriander'}
         url = detail_url(ingredient.id)
@@ -90,5 +90,5 @@ class PrivateIngredientsApiTests(TestCase):
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
-        ingredient = Ingredient.objects.filter(user=self.user)
-        self.assertFalse(ingredient.exists())
+        ingredients = Ingredient.objects.filter(user=self.user)
+        self.assertFalse(ingredients.exists())
