@@ -49,7 +49,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def _params_to_ints(self, qs):
-        """Convert a list of strings to intergers."""
+        """Convert a list of strings to integers."""
         return [int(str_id) for str_id in qs.split(',')]
 
     def get_queryset(self):
@@ -61,8 +61,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
             tag_ids = self._params_to_ints(tags)
             queryset = queryset.filter(tags__id__in=tag_ids)
         if ingredients:
-            ingredients_ids = self._params_to_ints(ingredients)
-            queryset = queryset.filter(ingredients__id__in=ingredients_ids)
+            ingredient_ids = self._params_to_ints(ingredients)
+            queryset = queryset.filter(ingredients__id__in=ingredient_ids)
 
         return queryset.filter(
             user=self.request.user
