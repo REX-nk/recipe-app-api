@@ -11,7 +11,7 @@ class HealthCheckTests(TestCase):
     """Test the health check API."""
 
     def test_health_check(self):
-        """Test health check API."""  
+        """Test health check API."""
         client = APIClient()
         url = reverse('health-check')
         res = client.get(url)
